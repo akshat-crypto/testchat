@@ -17,7 +17,6 @@ class DatabaseMethods {
         .snapshots();
   }
 
-  //uploading message to firestore
   Future addMessage(
       String chatRoomId, String messageId, Map messageInfoMap) async {
     return FirebaseFirestore.instance
@@ -28,7 +27,6 @@ class DatabaseMethods {
         .set(messageInfoMap);
   }
 
-  //updating last message to the firestore
   updateLastMessageSend(String chatRoomId, Map lastMessageInfoMap) {
     return FirebaseFirestore.instance
         .collection("chatrooms")
@@ -43,9 +41,10 @@ class DatabaseMethods {
         .get();
 
     if (snapShot.exists) {
-      //chatroom exists
+      // chatroom already exists
       return true;
     } else {
+      // chatroom does not exists
       return FirebaseFirestore.instance
           .collection("chatrooms")
           .doc(chatRoomId)
@@ -63,15 +62,14 @@ class DatabaseMethods {
   }
 
   Future<Stream<QuerySnapshot>> getChatRooms() async {
-    String myUserName = await SharedPreferenceHelper().getUserName();
+    String myUsername = await SharedPreferenceHelper().getUserName();
     return FirebaseFirestore.instance
         .collection("chatrooms")
         .orderBy("lastMessageSendTs", descending: true)
-        .where("users", arrayContains: myUserName)
+        .where("users", arrayContains: myUsername)
         .snapshots();
   }
 
-  //get user information
   Future<QuerySnapshot> getUserInfo(String username) async {
     return await FirebaseFirestore.instance
         .collection("users")
