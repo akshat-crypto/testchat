@@ -53,11 +53,13 @@ class _ScaffoldBodyState extends State<ScaffoldBody> {
                     DocumentSnapshot ds = snapshot.data.docs[index];
                     return ChatRoomListTile(
                         ds["lastMessage"], ds.id, myUserName);
+                    //ds["lastMessage"], ds.id, myName);
                   },
                   itemCount: snapshot.data.docs.length,
                 )
               : Center(
-                  child: CircularProgressIndicator(),
+                  //child: CircularProgressIndicator(),
+                  child: Container(),
                 );
         });
   }
@@ -77,27 +79,30 @@ class _ScaffoldBodyState extends State<ScaffoldBody> {
           MaterialPageRoute(builder: (context) => ChatScreen(username, name)),
         );
       },
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(40),
-            child: Image.network(
-              profileUrl,
-              height: 30,
-              width: 30,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(40),
+              child: Image.network(
+                profileUrl,
+                height: 30,
+                width: 30,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 14,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name),
-              Text(email),
-            ],
-          )
-        ],
+            SizedBox(
+              width: 14,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name),
+                Text(email),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -249,33 +254,36 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
           MaterialPageRoute(builder: (context) => ChatScreen(username, name)),
         );
       },
-      child: Row(
-        children: [
-          ClipRRect(
-            child: Image.network(
-              profilePicUrl,
-              height: 40,
-              width: 40,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            ClipRRect(
+              child: Image.network(
+                profilePicUrl,
+                height: 40,
+                width: 40,
+              ),
+              borderRadius: BorderRadius.circular(30),
             ),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          SizedBox(
-            width: 12,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              Text(widget.lastMessage)
-            ],
-          ),
-        ],
+            SizedBox(
+              width: 12,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(
+                  height: 3,
+                ),
+                Text(widget.lastMessage)
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
