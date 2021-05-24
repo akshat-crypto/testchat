@@ -34,6 +34,8 @@ dependencies:
   shared_preferences:
   random_string:
   cloud_firestore:
+  fluttertoast:
+  firebase_database:
 
 dev_dependencies:
   flutter_test:
